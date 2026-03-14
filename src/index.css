@@ -1,21 +1,111 @@
-@import 'tailwindcss';
+﻿@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap');
 
-@theme {
-  --color-accent: #2563eb;
-  --color-accent-light: #3b82f6;
-  --color-marked: #dcfce7;
-  --color-marked-border: #22c55e;
-  --color-bingo: #fbbf24;
+:root {
+  /* Spacing System */
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Colors - Minimal Mono */
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-gray-dark: #333333;
+  --color-gray-light: #F5F5F5;
+
+  /* Typography */
+  --font-mono-heading: 'Courier Prime', monospace;
+  --font-mono-body: 'Roboto Mono', monospace;
+
+  /* Borders */
+  --border: 1px solid var(--color-black);
+  --border-thick: 2px solid var(--color-black);
+
+  /* Transitions */
+  --transition-fast: 0.1s ease-in-out;
+  --transition-normal: 0.2s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
 }
 
-html,
-body,
-#root {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
   height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-mono-body);
+  background-color: var(--color-white);
+  color: var(--color-black);
+  line-height: 1.5;
   -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#root {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+button {
+  font-family: var(--font-mono-heading);
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border: 2px solid var(--color-black);
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+button:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:focus {
+  outline: 2px dashed var(--color-black);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+@keyframes modalPop {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --spacing-xl: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-xl: 16px;
+    --spacing-lg: 16px;
+  }
 }

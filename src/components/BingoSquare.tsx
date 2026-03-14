@@ -1,35 +1,47 @@
-import type { BingoSquareData } from '../types';
+﻿import type { BingoSquareData } from "../types";
 
-interface BingoSquareProps {
+type Props = {
   square: BingoSquareData;
-  isWinning: boolean;
   onClick: () => void;
-}
+};
 
-export function BingoSquare({ square, isWinning, onClick }: BingoSquareProps) {
-  const baseClasses =
-    'relative flex items-center justify-center p-1 text-center border border-gray-300 rounded transition-all duration-150 select-none min-h-[60px] text-xs leading-tight';
+export function BingoSquare({ square, onClick }: Props) {
+  const bgColor = square.isFreeSpace
+    ? "#F5F5F5"
+    : square.isMarked
+      ? "#000000"
+      : "#FFFFFF";
 
-  const stateClasses = square.isMarked
-    ? isWinning
-      ? 'bg-amber-200 border-amber-400 text-amber-900'
-      : 'bg-marked border-marked-border text-green-800'
-    : 'bg-white text-gray-700 active:bg-gray-100';
-
-  const freeSpaceClasses = square.isFreeSpace ? 'font-bold text-sm' : '';
+  const textColor = square.isFreeSpace
+    ? "#000000"
+    : square.isMarked
+      ? "#FFFFFF"
+      : "#000000";
 
   return (
     <button
       onClick={onClick}
-      disabled={square.isFreeSpace}
-      className={`${baseClasses} ${stateClasses} ${freeSpaceClasses}`}
+      style={{
+        fontFamily: "var(--font-mono-body)",
+        width: "60px",
+        height: "60px",
+        backgroundColor: bgColor,
+        color: textColor,
+        border: "2px solid #000000",
+        fontSize: "14px",
+        fontWeight: "700",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        padding: "4px",
+        cursor: square.isFreeSpace ? "default" : "pointer",
+      }}
       aria-pressed={square.isMarked}
-      aria-label={square.isFreeSpace ? 'Free space' : square.text}
+      disabled={square.isFreeSpace}
+      className="hover:scale-105 active:scale-95 transition-transform duration-100 focus:outline-dashed focus:outline-2 focus:outline-offset-2 focus:outline-black"
     >
-      <span className="wrap-break-word hyphens-auto">{square.text}</span>
-      {square.isMarked && !square.isFreeSpace && (
-        <span className="absolute top-0.5 right-0.5 text-green-600 text-xs">✓</span>
-      )}
+      {square.isFreeSpace ? "FREE" : square.text}
     </button>
   );
 }
